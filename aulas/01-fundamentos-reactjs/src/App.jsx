@@ -17,13 +17,14 @@ const posts = [
       role: 'Frontend Developer @ Gympass',
     },
     content: [
-      { type: 'paragraph', content: 'Fala galeraa 👋' },
+      { id: 'line11', type: 'paragraph', content: 'Fala galeraa 👋' },
       {
+        id: 'line12',
         type: 'paragraph',
         content:
           'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀',
       },
-      { type: 'link', content: 'jane.design/doctorcare' },
+      { id: 'line13', type: 'link', content: 'jane.design/doctorcare' },
     ],
     publishedAt: new Date('2022-06-10 20:00:00'),
   },
@@ -35,13 +36,14 @@ const posts = [
       role: 'Frontend Techlead @ Fidelidade',
     },
     content: [
-      { type: 'paragraph', content: 'Fala galeraa 👋' },
+      { id: 'line21', type: 'paragraph', content: 'Fala galeraa 👋' },
       {
+        id: 'line22',
         type: 'paragraph',
         content:
           'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀',
       },
-      { type: 'link', content: 'jane.design/doctorcare' },
+      { id: 'line23', type: 'link', content: 'jane.design/doctorcare' },
     ],
     publishedAt: new Date('2022-06-10 22:00:00'),
   },
