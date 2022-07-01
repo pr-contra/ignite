@@ -1,11 +1,29 @@
-import React, { useState } from 'react';
 import { format, formatDistanceToNow } from 'date-fns';
 import pt from 'date-fns/locale/pt';
-import { Comment } from './Comment';
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
 import { Avatar } from './Avatar';
+import { Comment } from './Comment';
 import styles from './Post.module.css';
 
-export const Post = ({ author, content, publishedAt }) => {
+type Author = {
+  avatarUrl: string;
+  name: string;
+  role: string;
+}
+
+type Content = {
+  id: string;
+  type: "paragraph" | "link";
+  content: string;
+}
+
+type Post = {
+  author: Author;
+  content: Content[];
+  publishedAt: Date;
+}
+
+export const Post = ({ author, content, publishedAt }: Post) => {
   // const publishedDateFormatted = new Intl.DateTimeFormat('pt-PT', {
   //   day: '2-digit',
   //   month: 'long',
@@ -13,7 +31,7 @@ export const Post = ({ author, content, publishedAt }) => {
   //   minute: '2-digit',
   // }).format(publishedAt);
 
-  const [comments, setComments] = useState([1, 2, 3]);
+  const [comments, setComments] = useState(["1", "2", "3"]);
   const [newCommentText, setNewCommentText] = useState('');
 
   const publishedDateFormatted = format(
@@ -27,12 +45,7 @@ export const Post = ({ author, content, publishedAt }) => {
     addSuffix: true,
   });
 
-  const handleNewCommentChange = e => {
-    setNewCommentText(e.target.value);
-    e.target.setCustomValidity("");
-  };
-
-  const handleCreateNewComment = e => {
+  const handleCreateNewComment = (e: FormEvent) => {
     e.preventDefault();
 
     setComments([...comments, newCommentText]);
@@ -40,16 +53,24 @@ export const Post = ({ author, content, publishedAt }) => {
     setNewCommentText('');
   };
 
-  const handleDeleteComment = comment => {
+
+  const handleNewCommentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setNewCommentText(e.target.value);
+    e.target.setCustomValidity("");
+  };
+
+  const handleNewInvalidComment = (e: InvalidEvent<HTMLTextAreaElement>) => {
+    e.target.setCustomValidity("Este campo é obrigatório!");
+  }
+
+
+  const handleDeleteComment = (commentToDelete: string) => {
     const newComments = [...comments];
-    newComments.splice(comments.indexOf(comment), 1);
+    newComments.splice(comments.indexOf(commentToDelete), 1);
 
     setComments(newComments);
   }
 
-  const handleNewInvalidComment = e => {
-    e.target.setCustomValidity("Este campo é obrigatório!");
-  }
 
   const isNewCommentEmpty = newCommentText.length <= 0;
 
